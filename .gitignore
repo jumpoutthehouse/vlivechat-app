@@ -1,0 +1,42 @@
+# ─────────────────────────────────────
+# vlivechat — .gitignore
+# ─────────────────────────────────────
+
+# Environment variables — NEVER commit these
+**/.env
+**/.env.local
+**/.env.production
+
+# Dependencies
+**/node_modules/
+
+# Build output
+dashboard/dist/
+dashboard/.vite/
+
+# Logs
+**/*.log
+**/logs/
+backend/src/logs/
+
+# Uploads (user-generated files — not source code)
+backend/uploads/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Portable PostgreSQL/Redis binaries (large binary files)
+backend/pgsql/
+backend/redis/
+backend/pgsql.zip
+backend/redis.zip
+backend/dump.rdb
+dump.rdb
+
+# PM2
+ecosystem.config.js
+
+# Scratch
+scratch/

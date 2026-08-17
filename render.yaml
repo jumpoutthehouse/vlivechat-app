@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────────────────
+# render.yaml — Render.com Deployment Configuration
+# Docs: https://render.com/docs/blueprint-spec
+# ─────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: vlivechat-backend
+    runtime: node
+    rootDir: backend
+    plan: free              # Free tier: 750h/month, spins down after 15min idle
+    region: singapore       # Closest to Indonesia
+
+    buildCommand: npm install
+    startCommand: npm start  # runs: node src/app.js
+
+    # Health check — Render uses this to verify deployment success
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000         # Render assigns PORT automatically; this is just a default
+      - key: DATABASE_URL
+        sync: false          # Set this manually in Render dashboard (paste from Neon.tech)
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure random value
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        value: https://vlivechat.com    # Your Vercel dashboard URL
+      - key: WIDGET_ORIGINS
+        value: https://vlivechat.com,https://www.vlivechat.com
+      - key: UPLOAD_DIR
+        value: ./uploads
+      - key: MAX_FILE_SIZE
+        value: "10485760"
+      - key: SLA_FIRST_RESPONSE
+        value: "5"
+      - key: SUPERADMIN_EMAIL
+        value: superadmin@vlivechat.com
+      - key: SUPERADMIN_PASSWORD
+        sync: false          # Set this manually in Render dashboard
